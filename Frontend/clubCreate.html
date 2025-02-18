@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+    <h1>Club Registration Page</h1>
+    <a style="text-decoration: none;" href="./index.html"><h1 class="PageButton">Go Home Page</h1> </a>
+    <form onsubmit="createClubHandler(event)" id="createForm">
+        <table cellspacing="30" >
+            <tr>
+                <td><label>Select Image: </label></td>
+                <td><input type="file" name="image"></td>
+            </tr>
+
+            <tr>
+                <td><label>Email: </label></td>
+                <td><input type="text" name="email"   ></td>
+            </tr>
+
+            <tr>
+                <td><label>Title: </label></td>
+                <td><input type="text" name="title"  required></td>
+            </tr>
+            <tr>
+                <td><label>Venue: </label></td>
+                <td><input type="text" name="venue" required></td>
+            </tr>
+            <tr >
+                <td colspan="2">
+
+                    <button id="sumbitBtn" type="submit" >Submit</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <script src="./script.js"></script>
+</body>
+</html>
