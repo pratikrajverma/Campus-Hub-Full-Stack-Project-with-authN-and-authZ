@@ -20,6 +20,11 @@ app.use(fileUpload({
 }));
 
 
+const cookieParser = require('cookie-parser')
+app.use(cookieParser())
+
+
+
 const router = require('./routes/clubRoutes')
 app.use('/api/v1',router)
 

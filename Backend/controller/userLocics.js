@@ -5,6 +5,8 @@ require('dotenv').config()
 
 const signup = async(req,res)=>{
     try{
+
+        
         const {name, email, password, role} = req.body;
 
         if(!name ||!email ||!password ||!role){
@@ -110,10 +112,11 @@ const login = async (req,res)=>{
         })
 
     }catch(err){
+        console.log(err)
         return res.status(500).json({
             success:false,
             message:'Failed to Login ....'
-        })
+        }) 
     }
 }
 module.exports = {signup, login}
