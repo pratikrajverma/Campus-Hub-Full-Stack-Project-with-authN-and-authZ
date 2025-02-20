@@ -6,7 +6,7 @@ require('dotenv').config()
 const signup = async(req,res)=>{
     try{
 
-        console.log('hii')
+      
 
         const {name, email, password, role} = req.body;
 
@@ -46,6 +46,7 @@ const signup = async(req,res)=>{
         })
 
     }catch(err){
+        console.log(err)
         return res.status(500).json({
             success:false,
             message:'Failed to sign up....'

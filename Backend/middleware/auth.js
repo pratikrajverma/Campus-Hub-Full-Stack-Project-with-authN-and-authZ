@@ -3,7 +3,12 @@ const jwt = require("jsonwebtoken");
 
 const auth = async (req, res, next) => {
   try {
-    const token = req.body || req.headers || req.cookies;
+      const token = req.body.token  || req.headers.authorization.split(' ')[1] || req.cookies.token;
+      
+
+
+
+    console.log(token)
 
     if (!token) {
       return res.status(401).json({
@@ -23,8 +28,9 @@ const auth = async (req, res, next) => {
 
     req.user = payload;
 
-    next();
+     next();
   } catch (err) {
+    console.log(err)
     return res.status(500).json({
       success: false,
       message: "failed to authenticate .....",

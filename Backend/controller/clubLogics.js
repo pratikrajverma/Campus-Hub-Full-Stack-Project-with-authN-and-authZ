@@ -40,6 +40,7 @@ const mailResponse = await transporter.sendMail({
 
 const createClub = async (req, res) => {
   try {
+  
     const { title, venue, email} = req.body;
 
     const {image} = req.files
