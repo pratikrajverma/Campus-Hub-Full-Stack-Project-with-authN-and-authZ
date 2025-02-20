@@ -1,4 +1,6 @@
 const Club = require("../model/clubModel");
+const User = require('../model/userModel')
+
 const path = require('path')
 require('dotenv').config()
 const nodemailer = require('nodemailer')
@@ -41,9 +43,11 @@ const mailResponse = await transporter.sendMail({
 const createClub = async (req, res) => {
   try {
   
-    const { title, venue, email} = req.body;
+    const { title, venue} = req.body;
 
     const {image} = req.files
+
+    const {email} = req.user
 
     if (!title || !venue || !image || !email) {
       return res.status(400).json({
@@ -81,8 +85,23 @@ const createClub = async (req, res) => {
     });
    }
 
-   const emailResponse = await sendNotification(response)
-   console.log('email response',emailResponse)
+   const updateUser = await User.findOneAndUpdate({email}, {$push:{club:response._id}}, {new:true})
+
+   const allUser = await User.find()
+
+   for(let user of allUser){
+
+     const emailResponse = await sendNotification(user)
+
+     if(emailResponse){
+       console.log('email response',emailResponse)
+
+     }else{
+      console.log('failed to send email')
+     }
+   }
+
+
 
 
     res.status(200).json({
@@ -216,5 +235,41 @@ const updateClub = async (req, res) => {
   }
 };
 
+const userDashboard = async(req,res)=>{
+  try{
+    const {email} = req.user
+    
+    if(!email){
+    return res.status(404).json({
+      success: false,
+      message: "email did not found",
+      err,
+    })
+  }
+  
+  
+  const user = await User.findOne({email})
+  
+  if(!user){
+    return res.status(404).json({
+      success: false,
+      message: "user not found by this email id ",
+      err,
+    })
+  }
+  
+  return res.status(200).json({
+    success: true,
+    message: "user dashboard data fetch successfully...... ",
+    response:user
+  })
 
-module.exports = {createClub,showClub,deleteClub,updateClub}
+  }catch(err){
+    console.log(err);
+    return res.status(500).json({
+      success: false,
+      message: "failed to fetch user Dashboard data"+err,
+    });
+  }
+}
+module.exports = {createClub,showClub,deleteClub,updateClub, userDashboard}

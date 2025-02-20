@@ -17,7 +17,11 @@ const userSchema = new mongoose.Schema({
         type:String,
         require:true,
         enum:['Student', 'Admin']
-    }
+    },
+    club:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Club'
+    }]
 })
 
 module.exports = mongoose.model('User', userSchema)
