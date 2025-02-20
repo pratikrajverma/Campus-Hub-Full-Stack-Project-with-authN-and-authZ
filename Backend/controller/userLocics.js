@@ -6,8 +6,11 @@ require('dotenv').config()
 const signup = async(req,res)=>{
     try{
 
-        
+        console.log('hii')
+
         const {name, email, password, role} = req.body;
+
+        console.log(name, email, password, role)
 
         if(!name ||!email ||!password ||!role){
             return res.status(400).json({
@@ -89,7 +92,9 @@ const login = async (req,res)=>{
             email :	user.email
         }
 
-        let token = jwt.sign(payload, process.env.jwt_secret, {expiresIn:'2h'})
+
+
+        let token = jwt.sign(payload, process.env.jwt_secret, {expiresIn:'3h'})
 
         if(!token){
             return res.status(401).json({
