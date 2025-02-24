@@ -25,9 +25,10 @@ const auth = async (req, res, next) => {
       });
     }
 
-    req.user = payload;
+      req.user = payload;
 
-     next();
+      next();
+
   } catch (err) {
     console.log(err)
     return res.status(500).json({

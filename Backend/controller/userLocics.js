@@ -93,9 +93,7 @@ const login = async (req,res)=>{
             email :	user.email
         }
 
-
-
-        let token = jwt.sign(payload, process.env.jwt_secret, {expiresIn:'3h'})
+        let token = jwt.sign(payload, process.env.jwt_secret, {expiresIn:'3d'})
 
         if(!token){
             return res.status(401).json({
@@ -107,6 +105,7 @@ const login = async (req,res)=>{
         const options = {
             expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
             httpOnly:true,
+            // secure:true,
         }
 
         
@@ -125,4 +124,5 @@ const login = async (req,res)=>{
         }) 
     }
 }
+
 module.exports = {signup, login}

@@ -8,7 +8,6 @@ const router = express.Router();
 // create api.............
 router.post('/createClub',auth, isAdmin, createClub)
 
-
 //show api...........
 router.get('/showClub', showClub)
 
@@ -21,7 +20,7 @@ router.delete('/deleteClub/:clubId',auth, isAdmin ,deleteClub)
 router.put('/updateClub/:clubId', updateClub)
 
 //user dashboard data..........
-router.get('/userdashboard',auth, userDashboard)
+router.get('/userdashboard', auth,    userDashboard)
 
 //login api...........
 router.post('/login', login)
