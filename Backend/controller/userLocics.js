@@ -6,18 +6,17 @@ require('dotenv').config()
 const signup = async(req,res)=>{
     try{
 
-      
 
         const {name, email, password, role} = req.body;
 
-        console.log(name, email, password, role)
+        // console.log(name, email, password, role)
 
         if(!name ||!email ||!password ||!role){
             return res.status(400).json({
                 success:false,
                 message: "Please provide all data for signup..."
             })
-        }
+        } 
 
         const userResponse = await User.findOne({email})
 
@@ -68,6 +67,7 @@ const login = async (req,res)=>{
 
         const user = await User.findOne({email})
 
+
         if(!user){
             return res.status(401).json({
                 success:false,
@@ -76,6 +76,7 @@ const login = async (req,res)=>{
         }
 
         const comparePassword = await bcrypt.compare(password, user.password)
+
 
 
         if(!comparePassword){
@@ -93,19 +94,19 @@ const login = async (req,res)=>{
             email :	user.email
         }
 
-        let token = jwt.sign(payload, process.env.jwt_secret, {expiresIn:'3d'})
+        let token = jwt.sign(payload, process.env.jwt_secret, {expiresIn:'3h'})
 
-        if(!token){
-            return res.status(401).json({
-                success:false,
-                message:'failed to create token'
-            })
-        }
+        // if(!token){
+        //     return res.status(401).json({
+        //         success:false,
+        //         message:'failed to create token'
+        //     })
+        // }
+
 
         const options = {
             expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-            httpOnly:true,
-            // secure:true,
+            httpOnly:true,          //backend access only
         }
 
         
@@ -121,7 +122,7 @@ const login = async (req,res)=>{
         return res.status(500).json({
             success:false,
             message:'Failed to Login ....'
-        }) 
+        })
     }
 }
 

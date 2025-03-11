@@ -1,6 +1,7 @@
 const Club = require("../model/clubModel");
 const User = require('../model/userModel')
 
+
 const path = require('path')
 require('dotenv').config()
 const nodemailer = require('nodemailer')
@@ -16,6 +17,7 @@ async function fileUploadToCloudinary(filePath,folder){
 function checkFileType(supportedFile, fileExtension){
   return supportedFile.includes(fileExtension)
 }
+
 
 async function sendNotification(docs){
 
@@ -66,7 +68,7 @@ const createClub = async (req, res) => {
 
     if(checkFileType(supportedFile, fileExtension)){
        console.log('success')
-      var cloudinaryResponse = await fileUploadToCloudinary(image.tempFilePath, 'campusHub')
+        var cloudinaryResponse = await fileUploadToCloudinary(image.tempFilePath, 'campusHub')
 
       console.log('cloudinary response',cloudinaryResponse) 
     }else{
@@ -89,16 +91,18 @@ const createClub = async (req, res) => {
 
    const allUser = await User.find()
 
+
    for(let user of allUser){
 
-     const emailResponse = await sendNotification(user)
-
-     if(emailResponse){
-       console.log('email response',emailResponse)
-
-     }else{
-      console.log('failed to send email')
-     }
+      const emailResponse = await sendNotification(user)
+      
+      if(emailResponse){
+        console.log('email response',emailResponse)
+        
+      }else{
+        console.log('failed to send email')
+      }
+    
    }
 
 

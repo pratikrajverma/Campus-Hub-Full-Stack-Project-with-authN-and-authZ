@@ -4,7 +4,6 @@ const app = express()
 require('dotenv').config()
 const port  = process.env.PORT || 4000
 
- 
 // middleware...........
 const cors = require('cors')
 app.use(cors({
@@ -19,10 +18,9 @@ app.use(fileUpload({
     tempFileDir: '/tmp/'
 }));
 
-
+ 
 const cookieParser = require('cookie-parser')
 app.use(cookieParser())
-
 
 
 const router = require('./routes/clubRoutes')
@@ -34,6 +32,7 @@ app.use('/api/v1',router)
 //database connection..........
 const connectDB = require('./database/mongodb')
 connectDB()
+
 
 //cloudinary connection.......................
 const cloudinaryConfig = require('./database/cloudinary')
